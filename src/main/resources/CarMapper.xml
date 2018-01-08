@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- namespace should point to corresponding mapper interface -->
+<mapper namespace="com.learnstack.mappers.CarMapper">
+	<resultMap id="carResult" type="car">
+		<id property="id" column="id" />
+		<result property="make" column="make" />
+		<result property="model" column="model" />
+	</resultMap>
+
+<!-- Tag ids should match method name in corresponding mapper interface -->
+	<select id="indexCars" resultType="car" resultMap="carResult">
+		SELECT id, make, model FROM car
+	</select>
+
+	<select id="getCarById" resultType="car" parameterType="int"
+		resultMap="carResult">
+		SELECT id, make, model FROM car WHERE id = #{id}
+	</select>
+
+	<select id="countCars" resultType="int">
+		SELECT count(*) FROM car
+	</select>
+
+	<select id="lastCar" resultType="car" resultMap="carResult">
+		SELECT id, make, model FROM car ORDER BY id DESC LIMIT 1
+	</select>
+
+	<insert id="insertCar" parameterType="car" keyProperty="id" useGeneratedKeys="true">
+		INSERT INTO car(make, model) VALUES(#{make}, #{model})
+		<!-- <selectKey> is to return the id and set it on the client, and prevent another db hit -->
+		<selectKey keyProperty="id" resultType="int" order="AFTER">
+			SELECT LAST_INSERT_ID();
+		</selectKey>
+	</insert>
+
+	<update id="updateCar" parameterType="car">
+		UPDATE car SET make = #{make}, model = #{model} WHERE id = #{id}
+	</update>
+
+	<delete id="deleteCar" parameterType="int">
+		DELETE FROM car WHERE id = #{id}
+	</delete>
+
+</mapper>

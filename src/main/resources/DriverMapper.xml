@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+  <mapper namespace="com.learnstack.mappers.DriverMapper">
+  	<resultMap type="driver" id="driverRM">
+  		<id property="id" column="id" />
+  		<result property="fName" column="fName" />
+  		<result property="lName" column="lName" />
+  		<!-- <association property="car" resultMap="com.learnstack.mappers.CarMapper.carResult" /> -->
+  		<association property="car" javaType="car">
+  			<id property="id" column="car_id"/> <!-- c.id as car_id in <select> to avoid naming conflict with driver.id -->
+  			<result property="make" column="make" />
+  			<result property="model" column="model" />
+  		</association>
+  	</resultMap>
+  	
+  	<select id="showDriver" resultType="driver" resultMap="driverRM">
+  		SELECT d.id, d.fName, d.lName, c.id as car_id, c.make, c.model
+  			FROM driver d
+  			JOIN car c ON d.carId = c.id
+  			WHERE d.id = #{id}
+  	</select>
+  	
+  	<select id="indexDrivers" resultType="driver" resultMap="driverRM">
+  		SELECT d.id, d.fName, d.lName, c.id as car_id, c.make, c.model
+  		FROM driver d
+  		JOIN car c ON d.carId = c.id
+  	</select>
+  	
+  	<insert id="insertDriver" parameterType="driver" keyProperty="id" useGeneratedKeys="true">
+  		INSERT INTO driver(fName, lName, carId) VALUES(#{fName}, #{lName}, #{car.id})
+		<!-- <selectKey> is to return the id and set it on the client, and prevent another db hit -->
+  		<selectKey keyProperty="id" resultType="int" order="AFTER">
+  			SELECT LAST_INSERT_ID();
+  		</selectKey>
+  	</insert>
+  	
+  	<update id="updateDriver" parameterType="driver">
+  		UPDATE driver SET fName = #{fName}, lName = #{lName}, carId = #{car.id} WHERE id = #{id}
+  	</update>
+  	
+  	<delete id="deleteDriver" parameterType="int">
+  		DELETE FROM driver WHERE id = #{id}
+  	</delete>
+  	
+  </mapper>

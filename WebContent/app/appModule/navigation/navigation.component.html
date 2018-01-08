@@ -1,0 +1,33 @@
+ <header>
+  <div class="collapse bg-dark" id="navbarHeader">
+    <div class="container">
+      <div class="row">
+        <div class="col-sm-8 py-4">
+          <h4 class="text-white">About</h4>
+          <p class="text-muted">Just learning the Angular, RestEasy, MyBatis, MySQL stack.</p>
+        </div>
+        <div class="col-sm-4 py-4">
+          <h4 class="text-white">Contact</h4>
+          <ul class="list-unstyled">
+            <li><a href="http://github.com/flycal6" class="text-white">Github</a></li>
+            <li><a href="https://www.linkedin.com/in/brian-ray-thomas/" class="text-white">LinkedIn</a></li>
+            <li><a href="mailto:brianraythomas@gmail.com" class="text-white">Email me</a></li>
+		    <li><logout ng-show="vm.checkLogIn()"></logout></li>
+          </ul>
+        </div>
+        </div>
+      </div>
+    </div>
+  <div class="navbar navbar-dark bg-dark">
+    <div class="container d-flex justify-content-between">
+      <a id="brandLogo" class="navbar-brand" href="#/"><img src="img/cat-outline.png" class="img-fluid"></a>
+      <button class="btn btn-outline-primary btn-sm navButtons" ng-click="vm.goHome()" >Home</button>
+      <button class="btn btn-outline-primary btn-sm navButtons" ng-click="vm.viewAllCars()" >Cars</button>
+      <button class="btn btn-outline-primary btn-sm navButtons" ng-click="vm.viewAllDrivers()" >Drivers</button>
+      <!-- <button class="btn btn-outline-primary btn-sm navButtons" ng-click="vm.register()" ng-hide="vm.checkLogIn()">Register</button> -->
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarHeader" aria-controls="navbarHeader" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon btn-sm"></span>
+      </button>
+    </div>
+  </div>
+</header>

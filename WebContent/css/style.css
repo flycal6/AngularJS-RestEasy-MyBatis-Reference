@@ -1,0 +1,24 @@
+body {
+    font-family: 'Nunito', sans-serif;
+}
+
+#brandLogo img {
+    max-height: 2em;
+}
+
+.row-hover {
+    color: #000;
+    transition: background 0.5s linear;
+    padding-top: 1em;
+}
+
+.row-hover:hover {
+    background-color: #d1d1d1;
+    transition: background 0.5s linear;
+    color: #fff;
+    cursor: pointer;
+}
+
+.table-hover tr:hover {
+	cursor: pointer;
+}
