@@ -4,6 +4,7 @@ public class Car {
 	private int id;
 	private String make;
 	private String model;
+	private Driver driver;
 
 	public int getId() {
 		return id;
@@ -29,6 +30,14 @@ public class Car {
 		this.model = model;
 	}
 
+	public Driver getDriver() {
+		return driver;
+	}
+	
+	public void setDriver(Driver driver) {
+		this.driver = driver;
+	}
+
 	@Override
 	public String toString() {
 		StringBuilder builder = new StringBuilder();
@@ -38,8 +47,10 @@ public class Car {
 		builder.append(make);
 		builder.append(", model=");
 		builder.append(model);
+		builder.append(", driver=");
+		builder.append(driver);
 		builder.append("]");
 		return builder.toString();
 	}
-
+	
 }

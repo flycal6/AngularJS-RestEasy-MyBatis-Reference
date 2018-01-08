@@ -41,7 +41,7 @@ CREATE TABLE `driver`(
 	`id` INT(10) NOT NULL AUTO_INCREMENT,
 	`fName` VARCHAR(50) NULL DEFAULT NULL,
 	`lName` VARCHAR(50) NULL DEFAULT NULL,
-	`carId` INT(10) NULL DEFAULT NULL,
+	`carId` INT(10) DEFAULT 0 UNIQUE,
 	FOREIGN KEY (`carId`)
 		REFERENCES `car` (`id`),
 	PRIMARY KEY (`id`)
@@ -53,6 +53,31 @@ INSERT INTO `driver` (fName, lName, carId)
 	VALUES ('Cal', 'Naughton Jr', 2);
 INSERT INTO `driver` (fName, lName, carId)
 	VALUES ('Jean', 'Girard', 3);
+
+DROP TABLE IF EXISTS `mechanic`;
+CREATE TABLE `mechanic`(
+	`id` INT(10) NOT NULL AUTO_INCREMENT,
+	`fName` VARCHAR(50) NOT NULL,
+	`lName` VARCHAR(50) NOT NULL,
+	`carId` INT(10) NULL DEFAULT NULL,
+	FOREIGN KEY (`carId`)
+		REFERENCES `car` (`id`),
+	PRIMARY KEY (`id`)
+);
+
+INSERT INTO `mechanic` (fName, lName, carId)
+VALUES ('Bob', 'Bobbers', 1);
+INSERT INTO `mechanic` (fName, lName, carId)
+VALUES ('Jim', 'Jimmers', 2);
+INSERT INTO `mechanic` (fName, lName, carId)
+VALUES ('Dick', 'Dickers', 3);
+
+INSERT INTO `mechanic` (fName, lName, carId)
+VALUES ('Rob', 'Robbers', 1);
+INSERT INTO `mechanic` (fName, lName, carId)
+VALUES ('Slim', 'Slimmers', 2);
+INSERT INTO `mechanic` (fName, lName, carId)
+VALUES ('Rick', 'Rickers', 3);
 
 -- DROP TABLE IF EXISTS `car_driver`;
 -- CREATE TABLE `car_driver`(

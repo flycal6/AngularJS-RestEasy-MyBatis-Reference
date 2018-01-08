@@ -9,11 +9,18 @@
 		<id property="id" column="id" />
 		<result property="make" column="make" />
 		<result property="model" column="model" />
+		<association property="driver" javaType="driver" >
+			<id property="id" column="driver_id" />
+			<result property="fName" column="fName" />
+			<result property="lName" column="lName" />
+		</association>
 	</resultMap>
 
 <!-- Tag ids should match method name in corresponding mapper interface -->
 	<select id="indexCars" resultType="car" resultMap="carResult">
-		SELECT id, make, model FROM car
+		SELECT c.id, c.make, c.model, d.id as driver_id, d.fName, d.lName
+		FROM car c
+		LEFT JOIN driver d ON d.carId = c.id
 	</select>
 
 	<select id="getCarById" resultType="car" parameterType="int"

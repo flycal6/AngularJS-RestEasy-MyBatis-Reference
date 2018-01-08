@@ -25,6 +25,7 @@
                 <th ng-click="vm.orderProp = 'id'">ID</th>
                 <th ng-click="vm.orderProp = 'make'">Make</th>
                 <th ng-click="vm.orderProp = 'model'">Model</th>
+                <th ng-click="vm.orderProp = 'driver.lName'">Driver</th>
             </tr>
         </thead>
         <tbody>
@@ -32,6 +33,7 @@
                 <td>{{c.id}}</td>
                 <td>{{c.make}}</td>
                 <td>{{c.model}}</td>
+                <td>{{c.driver.id != 0 ? c.driver.fName + " " + c.driver.lName : 'No Driver Assigned'}}</td>
             </tr>
         </tbody>
     </table>
