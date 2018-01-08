@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.learnstack.mappers.RaceMapper">
+	<resultMap type="race" id="singleRaceRM">
+		<id property="id" column="id" />
+		<result property="name" column="name" />
+		<collection property="drivers" ofType="driver">
+			<id property="id" column="driverId" />
+			<result property="fName" column="fName" />
+			<result property="lName" column="lName" />
+		</collection>
+	</resultMap>
+	
+	<resultMap type="race" id="racesRM">
+		<id property="id" column="id" />
+		<result property="name" column="name" />
+	</resultMap>
+	
+	<select id="indexRaces" resultType="race" resultMap="racesRM">
+		SELECT r.id, r.name
+		FROM Race r
+	</select>
+	
+	<select id="showRace" resultType="race" resultMap="singleRaceRM">
+		SELECT r.id, r.name, d.id as driverId, d.fName, d.lName
+		FROM Race r
+		LEFT JOIN race_driver rd
+		ON r.id = rd.race_id
+		JOIN driver d
+		ON d.id = rd.driver_id
+		WHERE r.id = #{id}
+	</select>
+</mapper>
