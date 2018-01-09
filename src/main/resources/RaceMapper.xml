@@ -11,6 +11,11 @@
 			<id property="id" column="driverId" />
 			<result property="fName" column="fName" />
 			<result property="lName" column="lName" />
+			<association property="car" javaType="car">
+				<id property="id" column="car_id" />
+				<result property="make" column="make" />
+				<result property="model" column="model" />
+			</association>
 		</collection>
 	</resultMap>
 	
@@ -25,12 +30,30 @@
 	</select>
 	
 	<select id="showRace" resultType="race" resultMap="singleRaceRM">
-		SELECT r.id, r.name, d.id as driverId, d.fName, d.lName
+		SELECT r.id, r.name, d.id as driverId, d.fName, d.lName,c.id as car_id, c.make, c.model
 		FROM Race r
 		LEFT JOIN race_driver rd
 		ON r.id = rd.race_id
-		JOIN driver d
+		LEFT JOIN driver d
 		ON d.id = rd.driver_id
+		LEFT JOIN car c
+		ON d.carId = c.id
 		WHERE r.id = #{id}
 	</select>
+	
+	<update id="updateRace" parameterType="race">
+		UPDATE race SET name = #{name}
+	</update>
+	
+	<insert id="insertRace" parameterType="race" keyProperty="id" useGeneratedKeys="true">
+		INSERT INTO race(name) VALUES(#{name})
+		<!-- <selectKey> is to return the id and set it on the client, and prevent another db hit -->
+  		<selectKey keyProperty="id" resultType="int" order="AFTER">
+  			SELECT LAST_INSERT_ID();
+  		</selectKey>
+	</insert>
+	
+	<delete id="deleteRace" parameterType="int">
+		DELETE FROM race WHERE id = #{id}
+	</delete>
 </mapper>

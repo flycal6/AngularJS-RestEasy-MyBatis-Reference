@@ -30,5 +30,6 @@
 		<mapper resource="CarMapper.xml" />
 		<mapper resource="DriverMapper.xml" />
 		<mapper resource="RaceMapper.xml" />
+		<mapper resource="RaceDriverMapper.xml" />
 	</mappers>
 </configuration>

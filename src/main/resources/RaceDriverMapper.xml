@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+  <mapper namespace="com.learnstack.mappers.RaceDriverMapper">
+  	<insert id="addDriversToRace">
+  		INSERT INTO race_driver(driver_id, race_id)
+  			VALUES
+  			<foreach item="driver" collection="drivers" separator=",">
+  				(#{driver.id}, #{race_id})
+  			</foreach>
+  	</insert>
+  	
+  	<delete id="removeDriverFromRace">
+  		DELETE FROM race_driver
+  		WHERE race_id = #{raceId} AND driver_id = #{driverId}
+  	</delete>
+  </mapper>
