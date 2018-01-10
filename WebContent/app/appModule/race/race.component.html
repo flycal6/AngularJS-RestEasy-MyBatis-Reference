@@ -1,0 +1,60 @@
+<div class="container">
+    <h1>Races</h1>
+
+    <!-- New car entry form -->
+    <div ng-show="!vm.selected">
+        <form>
+            <div class="form-group">
+                <div class="input-group">
+                    <div class="input-group-prepend">
+                        <div class="input-group-text">Race's Name</div>
+                    </div>
+                    <input type="text" class="form-control" id="name" placeholder="ex. Richard Petty Invitational" ng-model="vm.newRace.name">
+                </div>
+                <small id="nameHelp" class="form-text text-muted">Enter the race name.</small>
+            </div>
+            <button type="submit" class="btn btn-primary" ng-click="vm.createRace(vm.newRace); vm.newRace = {}">Create</button>
+        </form>
+        <hr />
+    </div>
+
+    <!-- index table of all races -->
+    <table class="table table-striped table-hover" ng-show="!vm.selected">
+        <thead>
+            <th ng-click="vm.orderProp = 'id'">ID</th>
+            <th ng-click="vm.orderProp = 'name'">Name</th>
+        </thead>
+        <tbody>
+            <tr ng-repeat="r in vm.races | orderBy : vm.orderProp" ng-click="vm.show(r.id)">
+                <td>{{r.id}}</td>
+                <td>{{r.name}}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <!-- View Single Selected Race -->
+    <div ng-show="vm.selected && !vm.updating">
+        <h2><span class="text-muted">ID:</span> {{vm.selected.id}}</h2>
+        <h2><span class="text-muted">Race:</span> {{vm.selected.name}}</h2>
+        <button class="btn btn-block btn-success" ng-click="vm.update()">Update</button>
+        <button class="btn btn-block btn-danger" ng-click="vm.deleteRace(vm.selected.id)">Delete</button>
+        <br />
+        <h2>Drivers</h2>
+        <table class="table table-striped table-hover">
+            <thead>
+                <th ng-click="vm.orderProp = 'id'">#</th>
+                <th ng-click="vm.orderProp = 'fName'">Name</th>
+                <th ng-click="vm.orderProp = 'car.make'">Car</th>
+            </thead>
+            <tbody>
+                <tr ng-repeat="d in vm.selected.drivers | orderBy : vm.orderProp">
+                    <td>{{d.id}}</td>
+                    <td>{{d.fName}} {{d.lName}}</td>
+                    <td>
+                        {{d.car.make}} {{d.car.model}}
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

@@ -38,7 +38,8 @@
   	</insert>
   	
   	<update id="updateDriver" parameterType="driver">
-  		UPDATE driver SET fName = #{fName}, lName = #{lName}, carId = #{car.id} WHERE id = #{id}
+  		UPDATE driver SET fName = #{fName}, lName = #{lName}, carId = #{car.id}
+  		WHERE id = #{id}
   	</update>
   	
   	<delete id="deleteDriver" parameterType="int">

@@ -28,10 +28,6 @@ public class RaceDriverService {
 		ObjectMapper om = new ObjectMapper();
 		try {
 			List<Driver> drivers = Arrays.asList(om.readValue(driverJson, Driver[].class));
-//			for (Driver driver : drivers) {
-//				System.out.println(drivers);
-//			}
-			
 			RaceDriverMapper rdm = session.getMapper(RaceDriverMapper.class);
 			rdm.addDriversToRace(drivers, rid);
 			session.commit();

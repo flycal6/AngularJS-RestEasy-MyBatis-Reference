@@ -15,6 +15,14 @@ angular.module('appModule').component('navigation', {
 			$rootScope.$broadcast('showAllDrivers');
 		};
 
+		/**
+		 * View All Races
+		 */
+		vm.viewAllRaces = function() {
+			$location.path('/races');
+			$rootScope.$broadcast('showAllRaces');
+		};
+
 		vm.goHome = function(){
 			$location.path('/');
 		};

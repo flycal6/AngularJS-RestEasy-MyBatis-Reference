@@ -10,6 +10,9 @@ angular.module('appModule', ['ngRoute']).config(
     .when('/drivers', {
         template: '<driver></driver>'
     })
+    .when('/races', {
+        template: '<race></race>'
+    })
     .otherwise({
       template: '<not-found></not-found>'
     })

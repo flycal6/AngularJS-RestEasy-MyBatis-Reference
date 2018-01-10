@@ -37,10 +37,10 @@ public class DriverService {
 		}
 		return null;
 	}
-	
+
 	@GET
 	@Produces("application/json")
-	public Set<Driver> indexDrivers(){
+	public Set<Driver> indexDrivers() {
 		SqlSession session = MyBatisUtil.getSqlSessionFactory().openSession();
 		try {
 			DriverMapper dm = session.getMapper(DriverMapper.class);
@@ -53,7 +53,7 @@ public class DriverService {
 		}
 		return null;
 	}
-	
+
 	@POST
 	@Consumes("application/json")
 	public int insertDriver(String driverJson) {
@@ -72,7 +72,7 @@ public class DriverService {
 		}
 		return -1;
 	}
-	
+
 	@PUT
 	@Path("/{id}")
 	@Consumes("application/json")
@@ -81,16 +81,20 @@ public class DriverService {
 		ObjectMapper om = new ObjectMapper();
 		try {
 			Driver d = om.readValue(driverJson, Driver.class);
-			DriverMapper dm = session.getMapper(DriverMapper.class);
-			dm.updateDriver(d);
-			session.commit();
+			if (id == d.getId()) {
+				DriverMapper dm = session.getMapper(DriverMapper.class);
+				dm.updateDriver(d);
+				session.commit();
+			} else {
+				System.out.println("driver update failed: path doesn't match driver.id");
+			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
 			session.close();
 		}
 	}
-	
+
 	@DELETE
 	@Path("/delete/{id}")
 	public boolean deleteDriver(@PathParam("id") int id) {
