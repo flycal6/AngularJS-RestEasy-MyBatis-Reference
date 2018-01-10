@@ -1,7 +1,7 @@
 <div class="container">
     <h1>Races</h1>
 
-    <!-- New car entry form -->
+    <!-- New race entry form -->
     <div ng-show="!vm.selected">
         <form>
             <div class="form-group">
@@ -47,7 +47,7 @@
                 <th ng-click="vm.orderProp = 'car.make'">Car</th>
             </thead>
             <tbody>
-                <tr ng-repeat="d in vm.selected.drivers | orderBy : vm.orderProp">
+                <tr ng-show="d.id > 0" ng-repeat="d in vm.selected.drivers | orderBy : vm.orderProp">
                     <td>{{d.id}}</td>
                     <td>{{d.fName}} {{d.lName}}</td>
                     <td>
@@ -57,4 +57,24 @@
             </tbody>
         </table>
     </div>
+
+    <!-- Update Race View -->
+    <div ng-show="vm.selected && vm.updating">
+        <form>
+            <div class="form-group">
+                <div class="input-group">
+                    <div class="input-group-prepend">
+                        <div class="input-group-text">Race's New Name</div>
+                    </div>
+                    <input type="text" class="form-control" ng-model="vm.selected.name">
+                </div>
+            </div>
+            <button class="btn btn-primary" type="submit" ng-click="vm.updateRace(vm.selected)">Change Name</button>
+        </form>
+    </div>
+
+
+
+
+
 </div>

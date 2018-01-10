@@ -1,8 +1,9 @@
 angular.module('appModule').component('car', {
     templateUrl: 'app/appModule/car/car.component.html',
-    controller: function(carService, $location, $scope) {
+    controller: function(carService, $location, $scope, driverService) {
         var vm = this;
         vm.cars = [];
+        // vm.drivers = [];
         vm.selected = null;
         vm.updating = null;
 
@@ -12,6 +13,7 @@ angular.module('appModule').component('car', {
             carService.index().then(function(res) {
                     vm.cars = res.data;
                     console.log(vm.cars);
+                    // loadDrivers();
                 })
                 .catch(function(err) {
                     console.log('carService.index() failed');
@@ -48,7 +50,7 @@ angular.module('appModule').component('car', {
         /*************** update selected car ******************/
         vm.update = function() {
             vm.updating = true;
-        }
+        };
 
         vm.updateCar = function(updateCar) {
             carService.update(updateCar).then(function(res) {
@@ -58,16 +60,24 @@ angular.module('appModule').component('car', {
                 need to hit the database again.  If concurrent user access will exist,
                 this should probably be replaced with a reload()
 				*************************************************************************/
-                    var spliceIndex;
-                    vm.cars.forEach(function(car, idx) {
-                        if (car.id == updateCar.id) {
-                            spliceIndex = idx;
+                    // var spliceIndex;
+                    // vm.cars.forEach(function(car, idx) {
+                    //     if (car.id == updateCar.id) {
+                    //         spliceIndex = idx;
+                    //     }
+                    // });
+                    // vm.cars.splice(spliceIndex, 1);
+                    // vm.cars.splice(spliceIndex, 0, updateCar);
+                    for (var i = 0; i < vm.cars.length; i++) {
+                        if (vm.cars[i].id == updateCar.id) {
+                            vm.cars[i].make = updateCar.make;
+                            vm.cars[i].model = updateCar.model;
+                            break;
                         }
-                    });
-                    vm.cars.splice(spliceIndex, 1);
-                    vm.cars.splice(spliceIndex, 0, updateCar);
+                    }
                 })
                 .catch(function(err) {
+                    console.log('carService.update(car) failed');
                     console.log(err);
                 })
                 .finally(function() {
@@ -92,6 +102,22 @@ angular.module('appModule').component('car', {
                     vm.selected = null;
                 });
         };
+
+        /**
+         * Load Drivers to make them available during creating and updating Cars
+         */
+        // var loadDrivers = function() {
+        //     driverService.index().then(function(res) {
+        //             vm.drivers = res.data;
+        //             console.log('drivers loaded');
+        //             console.log(vm.drivers);
+        //         })
+        //         .catch(function(err) {
+        //             console.log('loadDrivers failed');
+        //             console.log(err);
+        //         });
+        // };
+
         /********************** return to index view ******************
         This is used instead of $location.path to prevent page reload.
         The tradeoff is an unchanging templateUrl
@@ -99,6 +125,7 @@ angular.module('appModule').component('car', {
 
         $scope.$on('showAll', function() {
             vm.selected = null;
+            vm.updating = null;
         });
     },
     controllerAs: 'vm'

@@ -3,6 +3,7 @@ angular.module('appModule').component('race', {
     controller: function(raceService, $scope) {
         var vm = this;
         vm.races = [];
+        vm.updating = null;
 
         /**
          * View Races / Refresh
@@ -56,6 +57,10 @@ angular.module('appModule').component('race', {
         /**
          * Update a Race
          */
+        vm.update = function() {
+            vm.updating = true;
+        };
+
         vm.updateRace = function(raceUpdate) {
             raceService.update(raceUpdate).then(function(res) {
                     var spliceIndex;
@@ -70,6 +75,10 @@ angular.module('appModule').component('race', {
                 .catch(function(err) {
                     console.log('raceService.update(race) failed');
                     console.log(err);
+                })
+                .finally(function() {
+                    vm.updating = false;
+                    vm.selected = null;
                 });
         };
 
@@ -93,6 +102,16 @@ angular.module('appModule').component('race', {
                     vm.selected = null;
                 });
         };
+
+        /********************** return to index view ******************
+        This is used instead of $location.path to prevent page reload.
+        The tradeoff is an unchanging templateUrl
+        ***************************************************************/
+
+        $scope.$on('showAllRaces', function() {
+            vm.selected = null;
+            vm.updating = null;
+        });
     },
     controllerAs: 'vm'
 });

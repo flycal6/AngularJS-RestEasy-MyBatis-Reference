@@ -11,14 +11,14 @@ angular.module('appModule').component('driver', {
         var reload = function() {
             vm.selected = null;
             driverService.index().then(function(res) {
-                vm.drivers = res.data;
-                console.log(vm.drivers);
-                loadCars();
-            })
-            .catch(function(err) {
-                console.log('driverService.index() failed');
-                console.log(err);
-            });
+                    vm.drivers = res.data;
+                    console.log(vm.drivers);
+                    loadCars();
+                })
+                .catch(function(err) {
+                    console.log('driverService.index() failed');
+                    console.log(err);
+                });
         };
 
         reload();
@@ -28,12 +28,12 @@ angular.module('appModule').component('driver', {
          */
         vm.show = function(id) {
             driverService.show(id).then(function(res) {
-                vm.selected = res.data;
-            })
-            .catch(function(err) {
-                console.log('driverService.show(id) failed');
-                console.log(err);
-            });
+                    vm.selected = res.data;
+                })
+                .catch(function(err) {
+                    console.log('driverService.show(id) failed');
+                    console.log(err);
+                });
         };
 
         /**
@@ -41,24 +41,24 @@ angular.module('appModule').component('driver', {
          */
         vm.createDriver = function(newDriver) {
             driverService.create(newDriver).then(function(res) {
-                console.log('newDriver');
-                console.log(newDriver);
-                newDriver.id = res.data;
+                    console.log('newDriver');
+                    console.log(newDriver);
+                    newDriver.id = res.data;
 
-                // The driver.car info is incomplete from the form,
-                // so driver.car is swapped with a complete car from vm.cars
-                for (var i = 0; i < vm.cars.length; i++) {
-                    if (vm.cars[i].id == newDriver.car.id) {
-                        newDriver.car = vm.cars[i];
-                        break;
+                    // The driver.car info is incomplete from the form,
+                    // so driver.car is swapped with a complete car from vm.cars
+                    for (var i = 0; i < vm.cars.length; i++) {
+                        if (vm.cars[i].id == newDriver.car.id) {
+                            newDriver.car = vm.cars[i];
+                            break;
+                        }
                     }
-                }
-                vm.drivers.push(newDriver);
-            })
-            .catch(function(err) {
-                console.log('driver creation failed');
-                console.log(err);
-            });
+                    vm.drivers.push(newDriver);
+                })
+                .catch(function(err) {
+                    console.log('driver creation failed');
+                    console.log(err);
+                });
         };
 
         /**
@@ -71,26 +71,27 @@ angular.module('appModule').component('driver', {
             for (var i = 0; i < vm.cars.length; i++) {
                 if (vm.cars[i].id == updateDriver.car.id) {
                     updateDriver.car = vm.cars[i];
+                    break;
                 }
             }
             driverService.update(updateDriver).then(function(res) {
-                var spliceIndex;
-                vm.drivers.forEach(function(driver, idx) {
-                    if (driver.id == updateDriver.id) {
-                        spliceIndex = idx;
-                    }
+                    var spliceIndex;
+                    vm.drivers.forEach(function(driver, idx) {
+                        if (driver.id == updateDriver.id) {
+                            spliceIndex = idx;
+                        }
+                    });
+                    vm.drivers.splice(spliceIndex, 1);
+                    vm.drivers.splice(spliceIndex, 0, updateDriver);
+                })
+                .catch(function(err) {
+                    console.log('driver update failed');
+                    console.log(err);
+                })
+                .finally(function() {
+                    vm.updating = false;
+                    vm.selected = null;
                 });
-                vm.drivers.splice(spliceIndex, 1);
-                vm.drivers.splice(spliceIndex, 0, updateDriver);
-            })
-            .catch(function(err) {
-                console.log('driver update failed');
-                console.log(err);
-            })
-            .finally(function() {
-                vm.updating = false;
-                vm.selected = null;
-            });
         };
 
         /**
@@ -98,34 +99,34 @@ angular.module('appModule').component('driver', {
          */
         vm.deleteDriver = function(id) {
             driverService.destroy(id).then(function(res) {
-                for (var i = 0; i < vm.drivers.length; i++) {
-                    if (vm.drivers[i].id == id) {
-                        vm.drivers.splice(i, 1);
+                    for (var i = 0; i < vm.drivers.length; i++) {
+                        if (vm.drivers[i].id == id) {
+                            vm.drivers.splice(i, 1);
+                        }
                     }
-                }
-            })
-            .catch(function(err) {
-                console.log('driver destroy() failed');
-                console.log(err);
-            })
-            .finally(function(){
-                vm.selected = null;
-            });
+                })
+                .catch(function(err) {
+                    console.log('driver destroy() failed');
+                    console.log(err);
+                })
+                .finally(function() {
+                    vm.selected = null;
+                });
         };
 
         /**
          * Load all cars from carService, to make available when creating a new driver
          */
-        var loadCars = function(){
+        var loadCars = function() {
             carService.index().then(function(res) {
-                vm.cars = res.data;
-                console.log('cars loaded:');
-                console.log(vm.cars);
-            })
-            .catch(function(err) {
-                console.log('loadCars() failed');
-                console.log(err);
-            });
+                    vm.cars = res.data;
+                    console.log('cars loaded:');
+                    console.log(vm.cars);
+                })
+                .catch(function(err) {
+                    console.log('loadCars() failed');
+                    console.log(err);
+                });
         };
 
         /********************** return to index view ******************
@@ -133,8 +134,9 @@ angular.module('appModule').component('driver', {
         The tradeoff is an unchanging templateUrl
         ***************************************************************/
 
-        $scope.$on('showAllDrivers', function(){
+        $scope.$on('showAllDrivers', function() {
             vm.selected = null;
+            vm.updating = null;
         });
 
     },

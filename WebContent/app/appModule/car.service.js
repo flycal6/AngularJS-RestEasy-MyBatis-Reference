@@ -23,27 +23,27 @@ angular.module('appModule')
                 headers: {
                     'Content-Type': 'application/json'
                 },
-				data: car
+                data: car
             });
         };
 
-		service.update = function(car) {
-			return $http({
-				method: 'PUT',
-				url: 'services/cars/' + car.id,
-				headers: {
-					'Content-Type' : 'application/json'
-				},
-				data : car
-			});
-		};
+        service.update = function(car) {
+            return $http({
+                method: 'PUT',
+                url: 'services/cars/' + car.id,
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                data: car
+            });
+        };
 
-		service.destroy = function(id) {
-			return $http({
-				method: 'DELETE',
-				url: 'services/cars/delete/' + id
-			});
-		};
+        service.destroy = function(id) {
+            return $http({
+                method: 'DELETE',
+                url: 'services/cars/delete/' + id
+            });
+        };
 
         return service;
     });
