@@ -36,10 +36,31 @@
     <div ng-show="vm.selected && !vm.updating">
         <h2><span class="text-muted">ID:</span> {{vm.selected.id}}</h2>
         <h2><span class="text-muted">Race:</span> {{vm.selected.name}}</h2>
-        <button class="btn btn-block btn-success" ng-click="vm.update()">Update</button>
-        <button class="btn btn-block btn-danger" ng-click="vm.deleteRace(vm.selected.id)">Delete</button>
+        <div class="row">
+            <div class="col">
+                <button class="btn btn-block btn-outline-primary" ng-click="vm.update()">Update</button>
+            </div>
+            <div class="col">
+                <button class="btn btn-block btn-outline-danger" ng-click="vm.deleteRace(vm.selected.id)">Delete</button>
+            </div>
+        </div>
+
         <br />
         <h2>Drivers</h2>
+
+        <!-- Add Drivers to a Race form -->
+        <form>
+            <div class="form-group">
+                <label for="driverOptions">Add More Drivers</label>
+                <select id="driverOptions" class="form-control" multiple required
+                    ng-model="vm.driversToAdd" ng-options="driver.fName for driver in vm.availableDrivers">
+                </select>
+                <small class="form-text text-muted">ctrl + click to select multiple</small>
+            </div>
+            <button type="submit" class="btn btn-primary" ng-click="vm.addDriversToRace(vm.selected.id, vm.driversToAdd)">Add Drivers To Race</button>
+        </form>
+
+        <!-- Display Drivers already in Race -->
         <table class="table table-striped table-hover">
             <thead>
                 <th ng-click="vm.orderProp = 'id'">#</th>
@@ -72,9 +93,5 @@
             <button class="btn btn-primary" type="submit" ng-click="vm.updateRace(vm.selected)">Change Name</button>
         </form>
     </div>
-
-
-
-
 
 </div>

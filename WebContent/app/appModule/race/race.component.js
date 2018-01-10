@@ -1,8 +1,9 @@
 angular.module('appModule').component('race', {
     templateUrl: 'app/appModule/race/race.component.html',
-    controller: function(raceService, $scope) {
+    controller: function(raceService, $scope, driverService, raceDriverService) {
         var vm = this;
         vm.races = [];
+        vm.drivers = [];
         vm.updating = null;
 
         /**
@@ -29,16 +30,13 @@ angular.module('appModule').component('race', {
             raceService.show(id).then(function(res) {
                     vm.selected = res.data;
                     console.log(vm.selected);
+                    loadDrivers();
                 })
                 .catch(function(err) {
                     console.log('raceService.show(id) failed');
                     console.log(err);
                 });
         };
-
-        $scope.$on('showAllRaces', function() {
-            vm.selected = null;
-        });
 
         /**
          * Insert a New Race
@@ -65,7 +63,7 @@ angular.module('appModule').component('race', {
             raceService.update(raceUpdate).then(function(res) {
                     var spliceIndex;
                     vm.races.forEach(function(race, idx) {
-                        if (race.id == raceUpdate.idea) {
+                        if (race.id == raceUpdate.id) {
                             spliceIndex = idx;
                         }
                     });
@@ -79,6 +77,38 @@ angular.module('appModule').component('race', {
                 .finally(function() {
                     vm.updating = false;
                     vm.selected = null;
+                });
+        };
+
+        /**
+         * Add a Driver to a Race
+         */
+        var generateDriverChoices = function() {
+            console.log('generateDriverChoices()');
+            // console.log('vm.availableDrivers top');
+            // console.log(vm.availableDrivers);
+
+            for (var i = 0; i < vm.selected.drivers.length; i++) {
+                for (var j = 0; j < vm.availableDrivers.length; j++) {
+                    if (vm.availableDrivers[j].id == vm.selected.drivers[i].id) {
+                        vm.availableDrivers.splice(j, 1);
+                        break;
+                    }
+                }
+            }
+            console.log('vm.availableDrivers bottom');
+            console.log(vm.availableDrivers);
+        };
+
+        vm.addDriversToRace = function(rid, drivers) {
+            console.log('adding drivers to race');
+            console.log(vm.driversToAdd);
+            raceDriverService.addDrivers(rid, drivers).then(function(res) {
+                    console.log('drivers added to race');
+                })
+                .catch(function(err) {
+                    console.log('raceDriverService.addDrivers() failed');
+                    console.log(err);
                 });
         };
 
@@ -100,6 +130,24 @@ angular.module('appModule').component('race', {
                 })
                 .finally(function() {
                     vm.selected = null;
+                });
+        };
+
+        /**
+         * Load Drivers to make them available during creating and updating Cars,
+         * and adding drivers to Races
+         */
+        var loadDrivers = function() {
+            driverService.index().then(function(res) {
+                    vm.drivers = res.data;
+                    vm.availableDrivers = vm.drivers;
+                    console.log('drivers loaded');
+                    console.log(vm.drivers);
+                    generateDriverChoices();
+                })
+                .catch(function(err) {
+                    console.log('loadDrivers failed');
+                    console.log(err);
                 });
         };
 
