@@ -105,6 +105,9 @@ angular.module('appModule').component('race', {
             console.log(vm.driversToAdd);
             raceDriverService.addDrivers(rid, drivers).then(function(res) {
                     console.log('drivers added to race');
+                    drivers.forEach(function(d, idx) {
+                        vm.selected.drivers.push(d);
+                    });
                 })
                 .catch(function(err) {
                     console.log('raceDriverService.addDrivers() failed');
