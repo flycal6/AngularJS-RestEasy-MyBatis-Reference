@@ -22,3 +22,7 @@ body {
 .table-hover tr:hover {
 	cursor: pointer;
 }
+
+#chimney-cat {
+    max-width: 400px;
+}
