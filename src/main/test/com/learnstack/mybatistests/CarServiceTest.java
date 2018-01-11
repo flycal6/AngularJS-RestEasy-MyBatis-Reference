@@ -57,4 +57,27 @@ public class CarServiceTest {
 		assertNotNull(cars.get(1));
 	}
 
+	@Test
+	public void testInsertUpdateDelete() {
+		int numCars = carService.indexCars().size();
+		String carJson = "{\r\n" + 
+				"	\"make\" : \"Tesla\",\r\n" + 
+				"	\"model\" : \"Model 3\"\r\n" + 
+				"}";
+		int newCarId = carService.insertCar(carJson);
+		assertTrue(numCars + 1 == carService.indexCars().size());
+		
+		carJson = "{\r\n" + 
+				"	\"id\" : " + newCarId + ",\r\n" +
+				"	\"make\" : \"Tesla\",\r\n" + 
+				"	\"model\" : \"Model S\"\r\n" + 
+				"}";
+		carService.updateCar(newCarId, carJson);
+		assertTrue(carService.getCarById(newCarId).getModel().equals("Model S"));
+//		assertEquals("Model S", carService.getCarById(newCarId).getModel());
+		
+		boolean deleted = carService.deleteCar(newCarId);
+		assertTrue(deleted);
+		assertTrue(numCars == carService.indexCars().size());
+	}
 }
