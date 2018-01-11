@@ -88,10 +88,10 @@
                         <div class="input-group-text">Choose Driver's Car</div>
                     </div>
                     <select class="form-control" ng-model="vm.selected.car.id" required>
-                    <option ng-repeat="car in vm.cars" value={{car.id}}>
-                        {{car.make}} {{car.model}}
-                    </option>
-                </select>
+                        <option ng-repeat="car in vm.cars" value={{car.id}}>
+                            {{car.make}} {{car.model}}
+                        </option>
+                    </select>
                 </div>
             </div>
             <button class="btn btn-primary" ng-click="vm.updateDriver(vm.selected)">Perform Update</button>

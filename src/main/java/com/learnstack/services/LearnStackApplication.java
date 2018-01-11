@@ -20,6 +20,8 @@ public class LearnStackApplication extends Application {
 	public LearnStackApplication() {
 		singletons.add(new CarService());
 		singletons.add(new DriverService());
+		singletons.add(new RaceService());
+		singletons.add(new RaceDriverService());
 	}
 
 	@Override

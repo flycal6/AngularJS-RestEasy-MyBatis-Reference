@@ -20,7 +20,7 @@ import com.learnstack.utils.MyBatisUtil;
 
 @Path("/cars")
 public class CarService {
-	
+
 	@DELETE
 	@Path("/delete/{id}")
 	public boolean deleteCar(@PathParam("id") int id) {
@@ -37,7 +37,7 @@ public class CarService {
 		}
 		return false;
 	}
-	
+
 	@PUT
 	@Path("{id}")
 	@Consumes("application/json")
@@ -46,16 +46,20 @@ public class CarService {
 		ObjectMapper om = new ObjectMapper();
 		try {
 			Car car = om.readValue(carJson, Car.class);
-			CarMapper cm = session.getMapper(CarMapper.class);
-			cm.updateCar(car);
-			session.commit();
+			if (id == car.getId()) {
+				CarMapper cm = session.getMapper(CarMapper.class);
+				cm.updateCar(car);
+				session.commit();
+			} else {
+				System.out.println("car update failed: path doesn't match car.id");
+			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
 			session.close();
 		}
 	}
-	
+
 	@POST
 	@Consumes("application/json")
 	public int insertCar(String carJson) {
@@ -89,10 +93,10 @@ public class CarService {
 			session.close();
 		}
 	}
-	
+
 	@GET
 	@Produces("application/json")
-	public List<Car> indexCars(){
+	public List<Car> indexCars() {
 		SqlSession session = MyBatisUtil.getSqlSessionFactory().openSession();
 		try {
 			CarMapper cm = session.getMapper(CarMapper.class);

@@ -1,49 +1,48 @@
 angular.module('appModule')
-    .factory('carService', function($http) {
+    .factory('raceService', function($http) {
         var service = {};
 
         service.index = function() {
             return $http({
                 method: 'GET',
-                url: 'services/cars'
+                url: 'services/races'
             });
         };
 
         service.show = function(id) {
             return $http({
                 method: 'GET',
-                url: 'services/cars/' + id
+                url: 'services/races/' + id
             });
         };
 
-        service.create = function(car) {
+        service.create = function(race) {
             return $http({
                 method: 'POST',
-                url: 'services/cars',
+                url: 'services/races',
                 headers: {
                     'Content-Type': 'application/json'
                 },
-                data: car
+                data: race
             });
         };
 
-        service.update = function(car) {
+        service.update = function(race) {
             return $http({
                 method: 'PUT',
-                url: 'services/cars/' + car.id,
+                url: 'services/races/' + race.id,
                 headers: {
                     'Content-Type': 'application/json'
                 },
-                data: car
+                data: race
             });
         };
 
         service.destroy = function(id) {
             return $http({
                 method: 'DELETE',
-                url: 'services/cars/delete/' + id
+                url: 'services/races/delete/' + id
             });
         };
-
         return service;
     });

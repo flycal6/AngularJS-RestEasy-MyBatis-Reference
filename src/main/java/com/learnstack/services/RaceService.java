@@ -14,22 +14,21 @@ import javax.ws.rs.Produces;
 import org.apache.ibatis.session.SqlSession;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.learnstack.entities.Driver;
-import com.learnstack.mappers.DriverMapper;
+import com.learnstack.entities.Race;
+import com.learnstack.mappers.RaceMapper;
 import com.learnstack.utils.MyBatisUtil;
 
-@Path("/drivers")
-public class DriverService {
+@Path("/races")
+public class RaceService {
 
 	@GET
-	@Path("/{id}")
 	@Produces("application/json")
-	public Driver showDriver(@PathParam("id") int id) {
+	public Set<Race> indexRaces() {
 		SqlSession session = MyBatisUtil.getSqlSessionFactory().openSession();
 		try {
-			DriverMapper dm = session.getMapper(DriverMapper.class);
-			Driver d = dm.showDriver(id);
-			return d;
+			RaceMapper rm = session.getMapper(RaceMapper.class);
+			Set<Race> races = rm.indexRaces();
+			return races;
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
@@ -39,13 +38,14 @@ public class DriverService {
 	}
 
 	@GET
+	@Path("/{id}")
 	@Produces("application/json")
-	public Set<Driver> indexDrivers() {
+	public Race showRace(@PathParam("id") int id) {
 		SqlSession session = MyBatisUtil.getSqlSessionFactory().openSession();
 		try {
-			DriverMapper dm = session.getMapper(DriverMapper.class);
-			Set<Driver> drivers = dm.indexDrivers();
-			return drivers;
+			RaceMapper rm = session.getMapper(RaceMapper.class);
+			Race race = rm.showRace(id);
+			return race;
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
@@ -56,15 +56,15 @@ public class DriverService {
 
 	@POST
 	@Consumes("application/json")
-	public int insertDriver(String driverJson) {
+	public int insertRace(String raceJson) {
 		SqlSession session = MyBatisUtil.getSqlSessionFactory().openSession();
 		ObjectMapper om = new ObjectMapper();
 		try {
-			Driver d = om.readValue(driverJson, Driver.class);
-			DriverMapper dm = session.getMapper(DriverMapper.class);
-			dm.insertDriver(d);
+			Race r = om.readValue(raceJson, Race.class);
+			RaceMapper rm = session.getMapper(RaceMapper.class);
+			rm.insertRace(r);
 			session.commit();
-			return d.getId();
+			return r.getId();
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
@@ -76,17 +76,17 @@ public class DriverService {
 	@PUT
 	@Path("/{id}")
 	@Consumes("application/json")
-	public void updateDriver(@PathParam("id") int id, String driverJson) {
+	public void updateRace(@PathParam("id") int id, String raceJson) {
 		SqlSession session = MyBatisUtil.getSqlSessionFactory().openSession();
 		ObjectMapper om = new ObjectMapper();
 		try {
-			Driver d = om.readValue(driverJson, Driver.class);
-			if (id == d.getId()) {
-				DriverMapper dm = session.getMapper(DriverMapper.class);
-				dm.updateDriver(d);
+			Race r = om.readValue(raceJson, Race.class);
+			if (id == r.getId()) {
+				RaceMapper rm = session.getMapper(RaceMapper.class);
+				rm.updateRace(r);
 				session.commit();
 			} else {
-				System.out.println("driver update failed: path doesn't match driver.id");
+				System.out.println("Path id does not match object id");
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -96,12 +96,13 @@ public class DriverService {
 	}
 
 	@DELETE
-	@Path("/delete/{id}")
-	public boolean deleteDriver(@PathParam("id") int id) {
+	@Path("/delete/{rid}")
+	@Produces("application/json")
+	public boolean deleteRace(@PathParam("rid") int rid) {
 		SqlSession session = MyBatisUtil.getSqlSessionFactory().openSession();
 		try {
-			DriverMapper dm = session.getMapper(DriverMapper.class);
-			dm.deleteDriver(id);
+			RaceMapper rm = session.getMapper(RaceMapper.class);
+			rm.deleteRace(rid);
 			session.commit();
 			return true;
 		} catch (Exception e) {
@@ -111,4 +112,5 @@ public class DriverService {
 		}
 		return false;
 	}
+
 }

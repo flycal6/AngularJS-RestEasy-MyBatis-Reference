@@ -58,6 +58,16 @@
                 <label for="model">Model</label>
                 <input type="text" class="form-control" ng-model="vm.selected.model" />
             </div>
+            <!-- <div class="input-group">
+                <div class="input-group-prepend">
+                    <div class="input-group-text">Choose Car's Driver</div>
+                </div>
+                <select class="form-control" ng-model="vm.selected.driver.id" required>
+                <option ng-repeat="d in vm.drivers" value={{d.id}}>
+                    {{d.fName}} {{d.lName}}
+                </option>
+            </select>
+            </div> -->
             <button type="submit" class="btn btn-primary" ng-click="vm.updateCar(vm.selected)">Perform Update</button>
         </form>
     </div>
