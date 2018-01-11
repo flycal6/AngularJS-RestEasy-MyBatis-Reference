@@ -108,6 +108,7 @@ angular.module('appModule').component('race', {
                     drivers.forEach(function(d, idx) {
                         vm.selected.drivers.push(d);
                     });
+                    generateDriverChoices();
                 })
                 .catch(function(err) {
                     console.log('raceDriverService.addDrivers() failed');
@@ -122,6 +123,7 @@ angular.module('appModule').component('race', {
             raceDriverService.removeDriver(raceId, driverId).then(function(res) {
                 for (var i = 0; i < vm.selected.drivers.length; i++) {
                     if (vm.selected.drivers[i].id == driverId) {
+                        vm.availableDrivers.push(vm.selected.drivers[i]);
                         vm.selected.drivers.splice(i, 1);
                         break;
                     }
