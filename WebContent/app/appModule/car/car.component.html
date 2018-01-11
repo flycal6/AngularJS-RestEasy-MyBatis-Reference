@@ -5,13 +5,21 @@
     <div ng-show="!vm.selected">
         <form>
             <div class="form-group">
-                <label for="make">Make</label>
-                <input type="text" class="form-control" id="make" placeholder="Vehicle Make" ng-model="vm.newCar.make">
+                <div class="input-group">
+                    <div class="input-group-prepend">
+                        <div class="input-group-text">Vehicle Make</div>
+                    </div>
+                    <input type="text" class="form-control" id="make" placeholder="McLaren" ng-model="vm.newCar.make">
+                </div>
                 <small id="makeHelp" class="form-text text-muted">Enter the vehicle manufacturer.</small>
             </div>
             <div class="form-group">
-                <label for="model">Model</label>
-                <input type="text" class="form-control" id="model" placeholder="Vehicle Model" ng-model="vm.newCar.model">
+                <div class="input-group">
+                    <div class="input-group-prepend">
+                        <div class="input-group-text">Vehicle Model</div>
+                    </div>
+                    <input type="text" class="form-control" id="model" placeholder="570 S" ng-model="vm.newCar.model">
+                </div>
             </div>
             <button type="submit" class="btn btn-primary" ng-click="vm.createCar(vm.newCar); vm.newCar = {}">Create</button>
         </form>
@@ -43,20 +51,34 @@
         <h2><span class="text-muted">ID:</span> {{vm.selected.id}}</h2>
         <h2><span class="text-muted">MAKE:</span> {{vm.selected.make}}</h2>
         <h2><span class="text-muted">MODEL:</span> {{vm.selected.model}}</h2>
-        <button class="btn btn-block btn-success" ng-click="vm.update()">Update</button>
-        <button class="btn btn-block btn-danger" ng-click="vm.deleteCar(vm.selected.id)">Delete</button>
+        <div class="row">
+            <div class="col">
+                <button class="btn btn-block btn-outline-primary" ng-click="vm.update()">Update</button>
+            </div>
+            <div class="col">
+                <button class="btn btn-block btn-outline-danger" ng-click="vm.deleteCar(vm.selected.id)">Delete</button>
+            </div>
+        </div>
     </div>
 
     <!-- update view -->
     <div ng-show="vm.selected && vm.updating">
         <form>
             <div class="form-group">
-                <label for="make">Make</label>
-                <input type="text" class="form-control" ng-model="vm.selected.make" />
+                <div class="input-group">
+                    <div class="input-group-prepend">
+                        <div class="input-group-text">Manufacturer</div>
+                    </div>
+                    <input type="text" class="form-control" ng-model="vm.selected.make" />
+                </div>
             </div>
             <div class="form-group">
-                <label for="model">Model</label>
-                <input type="text" class="form-control" ng-model="vm.selected.model" />
+                <div class="input-group">
+                    <div class="input-group-prepend">
+                        <div class="input-group-text">Model</div>
+                    </div>
+                    <input type="text" class="form-control" ng-model="vm.selected.model" />
+                </div>
             </div>
             <!-- <div class="input-group">
                 <div class="input-group-prepend">
