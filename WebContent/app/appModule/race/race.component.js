@@ -116,6 +116,20 @@ angular.module('appModule').component('race', {
         };
 
         /**
+         * Remove a Driver from Race
+         */
+        vm.removeDriver = function(raceId, driverId) {
+            raceDriverService.removeDriver(raceId, driverId).then(function(res) {
+                for (var i = 0; i < vm.selected.drivers.length; i++) {
+                    if (vm.selected.drivers[i].id == driverId) {
+                        vm.selected.drivers.splice(i, 1);
+                        break;
+                    }
+                }
+            });
+        };
+
+        /**
          * Delete a Race
          */
         vm.deleteRace = function(id) {

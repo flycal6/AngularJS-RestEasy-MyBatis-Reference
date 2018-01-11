@@ -19,7 +19,7 @@ import com.learnstack.utils.MyBatisUtil;
 
 @Path("/race-drivers")
 public class RaceDriverService {
-	
+
 	@POST
 	@Path("/{rid}")
 	@Consumes("application/json")
@@ -37,11 +37,12 @@ public class RaceDriverService {
 			session.close();
 		}
 	}
-	
+
 	@DELETE
 	@Path("/race/{rid}/driver/{did}")
 	@Produces("application/json")
 	public boolean removeDriverFromRace(@PathParam("rid") int raceId, @PathParam("did") int driverId) {
+		System.out.println("in removeDriver()");
 		SqlSession session = MyBatisUtil.getSqlSessionFactory().openSession();
 		try {
 			RaceDriverMapper rdm = session.getMapper(RaceDriverMapper.class);

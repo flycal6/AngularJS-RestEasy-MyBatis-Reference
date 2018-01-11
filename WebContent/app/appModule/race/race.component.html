@@ -53,7 +53,7 @@
             <div class="form-group">
                 <label for="driverOptions">Add More Drivers</label>
                 <select id="driverOptions" class="form-control" multiple required
-                    ng-model="vm.driversToAdd" ng-options="driver.fName for driver in vm.availableDrivers">
+                    ng-model="vm.driversToAdd" ng-options="driver.fName + ' ' + driver.lName for driver in vm.availableDrivers">
                 </select>
                 <small class="form-text text-muted">ctrl + click to select multiple</small>
             </div>
@@ -73,6 +73,9 @@
                     <td>{{d.fName}} {{d.lName}}</td>
                     <td>
                         {{d.car.make}} {{d.car.model}}
+                    </td>
+                    <td>
+                        <button class="btn btn-danger" ng-click="vm.removeDriver(vm.selected.id, d.id)">X</button>
                     </td>
                 </tr>
             </tbody>

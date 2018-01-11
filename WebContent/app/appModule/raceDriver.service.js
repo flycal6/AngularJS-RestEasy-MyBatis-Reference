@@ -13,5 +13,13 @@ angular.module('appModule')
             });
         };
 
+        service.removeDriver = function(rid, did) {
+            console.log('inside raceDriverService.removeDriver');
+            return $http({
+                method: 'DELETE',
+                url: 'services/race-drivers/race/' + rid + '/driver/' + did
+            });
+        };
+
         return service;
     });
