@@ -3,7 +3,7 @@
     <h2>Drivers</h2>
 
     <!-- New Driver Entry Form -->
-    <div ng-show="!vm.selected">
+    <div ng-show="!vm.selected && !vm.loading">
         <form>
             <div class="form-group">
                 <div class="input-group">
@@ -42,7 +42,7 @@
     </div>
 
     <!-- Index table of all drivers -->
-    <table class="table table-striped table-hover" ng-show="!vm.selected">
+    <table class="table table-striped table-hover" ng-show="!vm.selected && !vm.loading">
         <thead>
             <tr>
                 <th ng-click="vm.orderProp = 'id'">ID</th>
@@ -62,7 +62,7 @@
     </table>
 
     <!-- detail view of a single driver -->
-    <div ng-show="vm.selected && !vm.updating">
+    <div ng-show="vm.selected && !vm.updating && !vm.loading">
         <h2><span class="text-muted">ID:</span> {{vm.selected.id}}</h2>
         <h2><span class="text-muted">First Name:</span> {{vm.selected.fName}}</h2>
         <h2><span class="text-muted">Last Name:</span> {{vm.selected.lName}}</h2>
@@ -78,7 +78,7 @@
     </div>
 
     <!-- update driver view -->
-    <div ng-show="vm.selected && vm.updating">
+    <div ng-show="vm.selected && vm.updating && !vm.loading">
         <form>
             <div class="form-group">
                 <div class="input-group">
@@ -110,5 +110,10 @@
             </div>
             <button class="btn btn-primary" ng-click="vm.updateDriver(vm.selected)">Perform Update</button>
         </form>
+    </div>
+    <!-- **************** only show while waiting for server response *************************** -->
+    <div id="loading" ng-show="vm.loading == 1">
+        <p class="display-3 text-center">Loading Drivers</p>
+        <img class="img-fluid mx-auto d-block" src="./img/cat-yarn-loader.gif">
     </div>
 </div>

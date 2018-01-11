@@ -10,14 +10,17 @@ angular.module('appModule').component('car', {
         /************ View Cars / Refresh ****************/
         var reload = function() {
             vm.selected = null;
+            vm.loading = true;
             carService.index().then(function(res) {
                     vm.cars = res.data;
-                    console.log(vm.cars);
                     // loadDrivers();
                 })
                 .catch(function(err) {
                     console.log('carService.index() failed');
                     console.log(err);
+                })
+                .finally(function() {
+                    vm.loading = false;
                 });
         };
 
@@ -25,6 +28,7 @@ angular.module('appModule').component('car', {
 
         /**************** insert a new car ******************/
         vm.createCar = function(newCar) {
+            vm.loading = true;
             carService.create(newCar).then(function(res) {
                     newCar.id = res.data;
                     vm.cars.push(newCar);
@@ -32,11 +36,15 @@ angular.module('appModule').component('car', {
                 .catch(function(err) {
                     console.log('car creation failed');
                     console.log(err);
+                })
+                .finally(function() {
+                    vm.loading = false;
                 });
         };
 
         /*************** view selected car *****************/
         vm.show = function(id) {
+            vm.loading = true;
             carService.show(id).then(function(res) {
                     // $location.path('/cars/' + id);
                     vm.selected = res.data;
@@ -44,6 +52,9 @@ angular.module('appModule').component('car', {
                 .catch(function(err) {
                     console.log('carService.show(id) failed');
                     console.log(err);
+                })
+                .finally(function() {
+                    vm.loading = false;
                 });
         };
 
@@ -53,6 +64,7 @@ angular.module('appModule').component('car', {
         };
 
         vm.updateCar = function(updateCar) {
+            vm.loading = true;
             carService.update(updateCar).then(function(res) {
                     console.log('car updated');
                     /*************************************************************************
@@ -83,11 +95,13 @@ angular.module('appModule').component('car', {
                 .finally(function() {
                     vm.updating = false;
                     vm.selected = null;
+                    vm.loading = false;
                 });
         };
 
         /*************** Delete selected car **************************/
         vm.deleteCar = function(id) {
+            vm.loading = true;
             carService.destroy(id).then(function(res) {
                     for (var i = 0; i < vm.cars.length; i++) {
                         if (vm.cars[i].id == id) {
@@ -100,6 +114,7 @@ angular.module('appModule').component('car', {
                 })
                 .finally(function() {
                     vm.selected = null;
+                    vm.loading = false;
                 });
         };
 

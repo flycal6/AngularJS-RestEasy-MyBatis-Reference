@@ -2,7 +2,7 @@
     <h1>Races</h1>
 
     <!-- New race entry form -->
-    <div ng-show="!vm.selected">
+    <div ng-show="!vm.selected && !vm.loading">
         <form>
             <div class="form-group">
                 <div class="input-group">
@@ -19,7 +19,7 @@
     </div>
 
     <!-- index table of all races -->
-    <table class="table table-striped table-hover" ng-show="!vm.selected">
+    <table class="table table-striped table-hover" ng-show="!vm.selected && !vm.loading">
         <thead>
             <th ng-click="vm.orderProp = 'id'">ID</th>
             <th ng-click="vm.orderProp = 'name'">Name</th>
@@ -33,7 +33,7 @@
     </table>
 
     <!-- View Single Selected Race -->
-    <div ng-show="vm.selected && !vm.updating">
+    <div ng-show="vm.selected && !vm.updating && !vm.loading">
         <h2><span class="text-muted">ID:</span> {{vm.selected.id}}</h2>
         <h2><span class="text-muted">Race:</span> {{vm.selected.name}}</h2>
         <div class="row">
@@ -83,7 +83,7 @@
     </div>
 
     <!-- Update Race View -->
-    <div ng-show="vm.selected && vm.updating">
+    <div ng-show="vm.selected && vm.updating && !vm.loading">
         <form>
             <div class="form-group">
                 <div class="input-group">
@@ -97,4 +97,9 @@
         </form>
     </div>
 
+    <!-- **************** only show while waiting for server response *************************** -->
+    <div id="loading" ng-show="vm.loading == 1">
+        <p class="display-3 text-center">Loading Races</p>
+        <img class="img-fluid mx-auto d-block" src="./img/cat-yarn-loader.gif">
+    </div>
 </div>
