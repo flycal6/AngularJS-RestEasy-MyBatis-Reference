@@ -14,8 +14,9 @@ import com.learnstack.entities.Car;
 import com.learnstack.services.CarService;
 
 public class CarServiceTest {
-	
+
 	private static CarService carService;
+
 	@BeforeClass
 	public static void setUpBeforeClass() throws Exception {
 		carService = new CarService();
@@ -25,7 +26,7 @@ public class CarServiceTest {
 	public static void tearDownAfterClass() throws Exception {
 		carService = null;
 	}
-	
+
 	@Test
 	public void smokeTest() {
 		boolean bool = true;
@@ -39,16 +40,16 @@ public class CarServiceTest {
 		assertEquals(1, car.getId());
 		assertEquals("Toyota", car.getMake());
 		assertEquals("Tacoma", car.getModel());
-		
+
 		car = carService.getCarById(2);
 		assertNotNull(car);
 		assertEquals(2, car.getId());
 		assertEquals("Jeep", car.getMake());
 		assertEquals("Grand Cheerokee", car.getModel());
-		
+
 		car = null;
 	}
-	
+
 	@Test
 	public void testIndexCars() {
 		List<Car> cars = carService.indexCars();
@@ -60,22 +61,16 @@ public class CarServiceTest {
 	@Test
 	public void testInsertUpdateDelete() {
 		int numCars = carService.indexCars().size();
-		String carJson = "{\r\n" + 
-				"	\"make\" : \"Tesla\",\r\n" + 
-				"	\"model\" : \"Model 3\"\r\n" + 
-				"}";
+		String carJson = "{\r\n" + "	\"make\" : \"Tesla\",\r\n" + "	\"model\" : \"Model 3\"\r\n" + "}";
 		int newCarId = carService.insertCar(carJson);
 		assertTrue(numCars + 1 == carService.indexCars().size());
-		
-		carJson = "{\r\n" + 
-				"	\"id\" : " + newCarId + ",\r\n" +
-				"	\"make\" : \"Tesla\",\r\n" + 
-				"	\"model\" : \"Model S\"\r\n" + 
-				"}";
+
+		carJson = "{\r\n" + "	\"id\" : " + newCarId + ",\r\n" + "	\"make\" : \"Tesla\",\r\n"
+				+ "	\"model\" : \"Model S\"\r\n" + "}";
 		carService.updateCar(newCarId, carJson);
 		assertTrue(carService.getCarById(newCarId).getModel().equals("Model S"));
-//		assertEquals("Model S", carService.getCarById(newCarId).getModel());
-		
+		// assertEquals("Model S", carService.getCarById(newCarId).getModel());
+
 		boolean deleted = carService.deleteCar(newCarId);
 		assertTrue(deleted);
 		assertTrue(numCars == carService.indexCars().size());
