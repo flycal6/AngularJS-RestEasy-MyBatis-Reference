@@ -2,9 +2,6 @@ package com.learnstack.mybatistests;
 
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
-
-import java.util.List;
 
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
@@ -13,7 +10,6 @@ import org.junit.Test;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.learnstack.entities.Driver;
-import com.learnstack.mappers.DriverMapper;
 import com.learnstack.services.DriverService;
 import com.learnstack.services.RaceDriverService;
 import com.learnstack.services.RaceService;
