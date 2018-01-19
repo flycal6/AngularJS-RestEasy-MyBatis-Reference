@@ -7,6 +7,7 @@
 <mapper namespace="com.learnstack.mappers.CarMapper">
 	<resultMap id="carResult" type="car">
 		<id property="id" column="id" />
+		<result property="date" column="date" />
 		<result property="make" column="make" />
 		<result property="model" column="model" />
 		<association property="driver" javaType="driver" >
@@ -25,7 +26,7 @@
 
 	<select id="getCarById" resultType="car" parameterType="int"
 		resultMap="carResult">
-		SELECT id, make, model FROM car WHERE id = #{id}
+		SELECT id, date, make, model FROM car WHERE id = #{id}
 	</select>
 
 	<select id="countCars" resultType="int">
