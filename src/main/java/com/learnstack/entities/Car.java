@@ -1,13 +1,24 @@
 package com.learnstack.entities;
 
+import java.util.Date;
+
 public class Car {
 	private int id;
+	private Date date;
 	private String make;
 	private String model;
 	private Driver driver;
 
 	public int getId() {
 		return id;
+	}
+
+	public Date getDate() {
+		return date;
+	}
+
+	public void setDate(Date date) {
+		this.date = date;
 	}
 
 	public void setId(int id) {
@@ -33,7 +44,7 @@ public class Car {
 	public Driver getDriver() {
 		return driver;
 	}
-	
+
 	public void setDriver(Driver driver) {
 		this.driver = driver;
 	}
@@ -52,5 +63,5 @@ public class Car {
 		builder.append("]");
 		return builder.toString();
 	}
-	
+
 }
