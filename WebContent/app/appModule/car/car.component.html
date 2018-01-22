@@ -49,7 +49,7 @@
     <!-- detail view of single car -->
     <div ng-show="vm.selected && !vm.updating && !vm.loading">
         <h2><span class="text-muted">ID:</span> {{vm.selected.id}}</h2>
-        <h2><span class="text-muted">CREATED:</span> {{vm.selected.date | date : format : 'MMM d, y h:mm a'}}</h2>
+        <h2><span class="text-muted">CREATED:</span> {{vm.selected.date | date : 'MMM d, y h:mm a'}}</h2>
         <h2><span class="text-muted">MAKE:</span> {{vm.selected.make}}</h2>
         <h2><span class="text-muted">MODEL:</span> {{vm.selected.model}}</h2>
         <div class="row">

@@ -64,6 +64,7 @@
     <!-- detail view of a single driver -->
     <div ng-show="vm.selected && !vm.updating && !vm.loading">
         <h2><span class="text-muted">ID:</span> {{vm.selected.id}}</h2>
+        <h2><span class="text-muted">Began Racing:</span> {{vm.selected.date | date : 'MMM d, y h:mm a'}}</h2>
         <h2><span class="text-muted">First Name:</span> {{vm.selected.fName}}</h2>
         <h2><span class="text-muted">Last Name:</span> {{vm.selected.lName}}</h2>
         <h2><span class="text-muted">Car:</span> #{{vm.selected.car.id}} {{vm.selected.car.make}} {{vm.selected.car.model}}</h2>
