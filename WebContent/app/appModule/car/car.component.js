@@ -30,8 +30,9 @@ angular.module('appModule').component('car', {
         vm.createCar = function(newCar) {
             vm.loading = true;
             carService.create(newCar).then(function(res) {
+            	console.log(res.data);
+            	console.log(newCar);
                     newCar.id = res.data;
-                    newCar.driver.lName = "No Driver Assigned";
                     vm.cars.push(newCar);
                 })
                 .catch(function(err) {
