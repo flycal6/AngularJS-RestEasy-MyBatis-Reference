@@ -19,7 +19,7 @@
 
 <!-- Tag ids should match method name in corresponding mapper interface -->
 	<select id="indexCars" resultType="car" resultMap="carResult">
-		SELECT c.id, c.make, c.model, d.id as driver_id, d.fName, d.lName
+		SELECT c.id, c.date, c.make, c.model, d.id as driver_id, d.fName, d.lName
 		FROM car c
 		LEFT JOIN driver d ON d.carId = c.id
 	</select>

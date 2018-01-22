@@ -33,6 +33,7 @@
                 <th ng-click="vm.orderProp = 'id'">ID</th>
                 <th ng-click="vm.orderProp = 'make'">Make</th>
                 <th ng-click="vm.orderProp = 'model'">Model</th>
+                <th ng-click="vm.orderProp = 'date'">Released</th>
                 <th ng-click="vm.orderProp = 'driver.lName'">Driver</th>
             </tr>
         </thead>
@@ -41,6 +42,7 @@
                 <td>{{c.id}}</td>
                 <td>{{c.make}}</td>
                 <td>{{c.model}}</td>
+                <td>{{c.date | date : 'MMM d, y'}}</td>
                 <td>{{c.driver.id > 0 ? c.driver.fName + " " + c.driver.lName : 'No Driver Assigned'}}</td>
             </tr>
         </tbody>
@@ -49,9 +51,9 @@
     <!-- detail view of single car -->
     <div ng-show="vm.selected && !vm.updating && !vm.loading">
         <h2><span class="text-muted">ID:</span> {{vm.selected.id}}</h2>
-        <h2><span class="text-muted">CREATED:</span> {{vm.selected.date | date : 'MMM d, y h:mm a'}}</h2>
-        <h2><span class="text-muted">MAKE:</span> {{vm.selected.make}}</h2>
-        <h2><span class="text-muted">MODEL:</span> {{vm.selected.model}}</h2>
+        <h2><span class="text-muted">Released:</span> {{vm.selected.date | date : 'MMM d, y'}}</h2>
+        <h2><span class="text-muted">Make:</span> {{vm.selected.make}}</h2>
+        <h2><span class="text-muted">Model:</span> {{vm.selected.model}}</h2>
         <div class="row">
             <div class="col">
                 <button class="btn btn-block btn-outline-primary" ng-click="vm.update()">Update</button>
