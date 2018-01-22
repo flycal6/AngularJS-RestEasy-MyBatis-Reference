@@ -1,8 +1,11 @@
 package com.learnstack.entities;
 
+import java.util.Date;
+
 public class Driver {
 
 	private int id;
+	private Date date;
 	private String fName;
 	private String lName;
 	private Car car;
@@ -13,6 +16,14 @@ public class Driver {
 
 	public void setId(int id) {
 		this.id = id;
+	}
+
+	public Date getDate() {
+		return date;
+	}
+
+	public void setDate(Date date) {
+		this.date = date;
 	}
 
 	public String getfName() {
