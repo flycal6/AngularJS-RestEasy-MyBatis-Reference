@@ -25,7 +25,7 @@
   	</select>
   	
   	<select id="indexDrivers" resultType="driver" resultMap="driverRM">
-  		SELECT d.id, d.fName, d.lName, c.id as car_id, c.make, c.model
+  		SELECT d.id, d.date, d.fName, d.lName, c.id as car_id, c.make, c.model
   		FROM driver d
   		JOIN car c ON d.carId = c.id
   	</select>

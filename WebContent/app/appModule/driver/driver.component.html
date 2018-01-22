@@ -46,6 +46,7 @@
         <thead>
             <tr>
                 <th ng-click="vm.orderProp = 'id'">ID</th>
+                <th ng-click="vm.orderProp = 'date'">Started Racing</th>
                 <th ng-click="vm.orderProp = 'fName'">First Name</th>
                 <th ng-click="vm.orderProp = 'lName'">Last Name</th>
                 <th ng-click="vm.orderProp = 'car.id'">Car</th>
@@ -54,6 +55,7 @@
         <tbody>
             <tr ng-repeat="d in vm.drivers | orderBy : vm.orderProp" ng-click="vm.show(d.id)">
                 <td>{{d.id}}</td>
+                <td>{{d.date | date : 'MMM d, y'}}</td>
                 <td>{{d.fName}}</td>
                 <td>{{d.lName}}</td>
                 <td>#{{d.car.id}} {{d.car.make}} {{d.car.model}}</td>
