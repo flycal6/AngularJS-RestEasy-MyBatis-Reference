@@ -6,6 +6,7 @@
   <mapper namespace="com.learnstack.mappers.DriverMapper">
   	<resultMap type="driver" id="driverRM">
   		<id property="id" column="id" />
+  		<result property="date" column="date" />
   		<result property="fName" column="fName" />
   		<result property="lName" column="lName" />
   		<!-- <association property="car" resultMap="com.learnstack.mappers.CarMapper.carResult" /> -->
@@ -17,7 +18,7 @@
   	</resultMap>
   	
   	<select id="showDriver" resultType="driver" resultMap="driverRM">
-  		SELECT d.id, d.fName, d.lName, c.id as car_id, c.make, c.model
+  		SELECT d.id, d.date, d.fName, d.lName, c.id as car_id, c.make, c.model
   			FROM driver d
   			JOIN car c ON d.carId = c.id
   			WHERE d.id = #{id}
