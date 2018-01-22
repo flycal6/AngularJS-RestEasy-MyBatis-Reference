@@ -30,12 +30,12 @@ CREATE TABLE `car` (
 	PRIMARY KEY (`id`)
 );
 
-INSERT INTO `car` (make, model)
-	VALUES ('Toyota', 'Tacoma');
-INSERT INTO `car` (make, model)
-	VALUES ('Jeep', 'Grand Cheerokee');
-INSERT INTO `car` (make, model)
-	VALUES ('Renault', 'Clio');
+INSERT INTO `car` (date, make, model)
+	VALUES ('1995-02-25', 'Toyota', 'Tacoma');
+INSERT INTO `car` (date, make, model)
+	VALUES ('1993-01-31', 'Jeep', 'Grand Cheerokee');
+INSERT INTO `car` (date, make, model)
+	VALUES ('1990-09-14', 'Renault', 'Clio');
 
 DROP TABLE IF EXISTS `driver`;
 CREATE TABLE `driver`(
@@ -49,12 +49,12 @@ CREATE TABLE `driver`(
 	PRIMARY KEY (`id`)
 );
 
-INSERT INTO `driver` (fName, lName, carId)
-	VALUES ('Ricky', 'Bobby', 1);
-INSERT INTO `driver` (fName, lName, carId)
-	VALUES ('Cal', 'Naughton Jr', 2);
-INSERT INTO `driver` (fName, lName, carId)
-	VALUES ('Jean', 'Girard', 3);
+INSERT INTO `driver` (date, fName, lName, carId)
+	VALUES ('2005-07-04 14:15:00', 'Ricky', 'Bobby', 1);
+INSERT INTO `driver` (date, fName, lName, carId)
+	VALUES ('2005-10-31 08:30:00', 'Cal', 'Naughton Jr', 2);
+INSERT INTO `driver` (date, fName, lName, carId)
+	VALUES ('2012-01-01 12:45:44', 'Jean', 'Girard', 3);
 
 DROP TABLE IF EXISTS `race`;
 CREATE TABLE `race`(
